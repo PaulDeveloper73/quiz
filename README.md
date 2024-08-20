@@ -1,5 +1,5 @@
 # Quiz App
-This app evaluates your knowledge on the topic of the quiz form the field of IT.
+This app evaluates your knowledge on the topic of the quiz in the field of IT.
 
 ## Features
 - Start the quiz
@@ -10,7 +10,7 @@ This app evaluates your knowledge on the topic of the quiz form the field of IT.
 - React
 - Vite
 - Tailwind CSS
-  
+
 Live quiz app is here: https://it-quiz-test.netlify.app/
 
 ## Getting Started
