@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .bg-gray-67 {
+    background-color: #f7fafc;
+    background-color: rgba(247, 250, 252, var(--tw-bg-opacity));
+  }
+
+  .border-gray-45 {
+    border-color: #edf2f7;
+    border-color: rgba(237, 242, 247, var(--tw-border-opacity));
+  }
+  body {
+    @apply bg-gray-100;
+  }
+}
+.gallery::-webkit-scrollbar {
+  display: none;
+}
+/* 
+https://www.themoviedb.org/
+https://www.jumia.ug/
+https://yts.mx/
+https://templates.iqonic.design/streamit-dist/frontend/html/video.html
+https://preview.themeforest.net/item/movflx-video-production-and-movie-react-js-template/full_screen_preview/37648670
+https://www.imdb.com/?ref_=nv_home
+https://www.themoviedb.org/login
+username: paulweb
+password: kspbrains44 */
+
+/* 
+design this site::after
+https://templates.iqonic.design/streamit-dist/frontend/html/index.html 
+
+https://www.themoviedb.org/movie/top-rated
+
+https://www.imdb.com/?ref_=nv_home
+
+https://www.themoviedb.org/*/
+/* https://www.mukuru.com/sz/ */

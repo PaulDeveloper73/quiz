@@ -1,0 +1,26 @@
+.help-one-bg:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "";
+    background-color: hsla(198, 100%, 37%,1);
+}
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+   
+}
+.fade-exit{
+    opacity: 1;
+    
+}
+.fade-exit-active{
+    opacity: 0;
+      transition: opacity 300ms ease-in-out;
+
+  }
