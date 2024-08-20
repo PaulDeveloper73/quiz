@@ -10,6 +10,8 @@ This app evaluates your knowledge on the topic of the quiz form the field of IT.
 - React
 - Vite
 - Tailwind CSS
+  
+Live quiz app is here: https://it-quiz-test.netlify.app/
 
 ## Getting Started
 1. Clone the repository
