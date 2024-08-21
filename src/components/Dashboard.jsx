@@ -22,7 +22,7 @@ const Dashboard = () => {
   };
   return (
     <>
-      <section className="flex flex-col items-center justify-center min-h-screen space-y-10 gap-x-10 lg:flex-row bg-gradient-to-tr from-transparent via-blue-100 to-transparent">
+      <section className="flex flex-col items-center justify-center min-h-screen space-y-10 gap-x-10 lg:flex-row bg-slate-100 bg-opacity-10 ">
         <div className="p-4 border rounded-md shadow-md bg-slate-100 min-w-[320px]  lg:min-w-[600px]">
           <h1 className="pb-4 text-4xl font-semibold text-blue-400 border-b-2 border-slate-300">
             Quiz App
@@ -53,7 +53,7 @@ const Dashboard = () => {
             </div>
           </section>
         </div>
-        <div className="p-4 border rounded-md shadow-md bg-opacity-35 bg-slate-50 ">
+        <div className="p-4 bg-white border rounded-md shadow-md ">
           <div className="flex items-center justify-between">
             <h4 className="pb-4 text-2xl font-light border-b-2 text-slate-500 border-slate-300">
               Result Summary
