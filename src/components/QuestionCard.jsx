@@ -7,7 +7,7 @@ const QuestionCard = ({ qn, handleAnswer }) => {
           return (
             <span
               key={index}
-              onClick={() => handleAnswer(a)}
+              onClick={() => handleAnswer(a, index)}
               className="p-2 transition-all ease-in-out border cursor-pointer border-slate-200 hover:bg-blue-400 hover:text-slate-100 hover:ps-4 hover:rounded-md"
             >
               {a}

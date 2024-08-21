@@ -36,7 +36,7 @@ export const data = [
   {
     id: 5,
     question: "First page of a website is termed as?",
-    options: ["Index page", " Home Page", "Sitemap", "Pen drive"],
+    options: ["Index page", "Home page", "Sitemap", "Pen drive"],
     answer: "Home page",
     answered: false,
     useranswer: null,

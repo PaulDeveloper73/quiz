@@ -20,7 +20,9 @@ const Dashboard = () => {
   const sleep = async () => {
     return new Promise((resolve) => setTimeout(resolve, 1000));
   };
-  const handleAnswer = (answer) => {
+  const handleAnswer = (answer, i) => {
+    console.log(i);
+
     const activeQn = [activeQuestion].find((c) => c.answer === answer);
     if (activeQn) {
       console.log("Corect answer");
