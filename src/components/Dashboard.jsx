@@ -12,11 +12,27 @@ import QuestionCard from "./QuestionCard";
 const Dashboard = () => {
   const totalQuestion = data.length;
   const [activeQn, setActiveQn] = useState(0);
+  const [status, setStatus] = useState(false);
   const totaAnsweredQuestions = data.filter((d) => d.answered === false);
   const activeQuestion = data[activeQn];
-  const handleAnswer = (answer) => {};
-  const handleNextQuestion = () => {
+  const correctAnswerClass = "border border-green-300";
+  const wrongAnswerClass = "border border-red-300";
+  const sleep = async () => {
+    return new Promise((resolve) => setTimeout(resolve, 1000));
+  };
+  const handleAnswer = (answer) => {
+    const activeQn = [activeQuestion].find((c) => c.answer === answer);
+    if (activeQn) {
+      console.log("Corect answer");
+    } else {
+      console.log("wrong answer");
+    }
+  };
+  const handleNextQuestion = async () => {
+    setStatus(true);
     if (activeQn < totalQuestion) {
+      await sleep(1000);
+      setStatus(false);
       setActiveQn(activeQn + 1);
     }
   };
@@ -42,13 +58,23 @@ const Dashboard = () => {
               <button
                 type="button"
                 onClick={handleNextQuestion}
-                className="w-full py-3 text-xl bg-blue-400 border-none rounded-sm shadow-md outline-none text-slate-100 hover:ring-1 hover:ring-offset-4 hover:ring-blue-400 hover:cursor-pointer hover:bg-blue-500"
+                className={
+                  activeQn === totalQuestion - 1
+                    ? "w-full py-3 text-xl bg-slate-300 border-none rounded-sm shadow-md outline-none text-slate-100  hover:cursor-none "
+                    : "w-full py-3 text-xl bg-blue-400 border-none rounded-sm shadow-md outline-none text-slate-100 hover:ring-1 hover:ring-offset-4 hover:ring-blue-400 hover:cursor-pointer hover:bg-blue-500"
+                }
                 disabled={activeQn === totalQuestion - 1}
               >
-                Next{" "}
-                <span>
-                  <FontAwesomeIcon icon={faArrowRight} />
-                </span>
+                {status ? "Loading" : "Next"}
+
+                {!status && (
+                  <span className=" ps-2">
+                    <FontAwesomeIcon
+                      icon={faArrowRight}
+                      className="text-sm font-light"
+                    />
+                  </span>
+                )}
               </button>
             </div>
           </section>
