@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { data } from "./Questions";
+import Loading from "./Loading";
 import {
   faArrowRight,
   faCheck,
@@ -7,15 +8,26 @@ import {
   faPlusCircle,
   faShare,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import QuestionCard from "./QuestionCard";
 
 const Dashboard = () => {
   const totalQuestion = data.length;
   const [activeQn, setActiveQn] = useState(0);
+  const [loader, setLoader] = useState(true);
   const [status, setStatus] = useState(false);
   const [questions, setQuestions] = useState(data);
+  const [message, setMessage] = useState(false);
   const answeredQuestion = questions.filter((qn) => qn.answered);
+  const lastAnsweredQuestion = activeQn === totalQuestion - 1;
+  if (lastAnsweredQuestion) {
+    const isLastQuestion = questions.find(
+      (qn) => qn.id === totalQuestion && qn.answered
+    );
+    if (isLastQuestion) {
+      // setMessage(true);
+    }
+  }
 
   const sleep = async () => {
     return new Promise((resolve) => setTimeout(resolve, 1000));
@@ -34,7 +46,6 @@ const Dashboard = () => {
       return qn;
     });
     setQuestions(updatedQuestions);
-    console.log(updatedQuestions);
   };
 
   const handleNextQuestion = async () => {
@@ -45,6 +56,10 @@ const Dashboard = () => {
       setActiveQn(activeQn + 1);
     }
   };
+
+  if (loader) {
+    return <Loading setLoader={setLoader} />;
+  }
 
   return (
     <>
@@ -59,21 +74,27 @@ const Dashboard = () => {
             </span>
           </section>
           <section>
-            {questions
-              .filter((qn) => qn.id === activeQn + 1)
-              .map((qn) => (
-                <QuestionCard key={qn.id} qn={qn} handleAnswer={handleAnswer} />
-              ))}
+            {message
+              ? "Thank you for participating in the test!"
+              : questions
+                  .filter((qn) => qn.id === activeQn + 1)
+                  .map((qn) => (
+                    <QuestionCard
+                      key={qn.id}
+                      qn={qn}
+                      handleAnswer={handleAnswer}
+                    />
+                  ))}
             <div className="pt-20">
               <button
                 type="button"
                 onClick={handleNextQuestion}
                 className={
-                  activeQn === totalQuestion - 1
+                  lastAnsweredQuestion
                     ? "w-full py-3 text-xl bg-slate-300 border-none rounded-sm shadow-md outline-none text-slate-100 hover:cursor-none"
                     : "w-full py-3 text-xl bg-blue-400 border-none rounded-sm shadow-md outline-none text-slate-100 hover:ring-1 hover:ring-offset-4 hover:ring-blue-400 hover:cursor-pointer hover:bg-blue-500"
                 }
-                disabled={activeQn === totalQuestion - 1}
+                disabled={lastAnsweredQuestion}
               >
                 {status ? "Loading" : "Next"}
                 {!status && (
@@ -107,27 +128,17 @@ const Dashboard = () => {
               {answeredQuestion.map((qn) => (
                 <div key={qn.id}>
                   <div className="flex items-center justify-start pt-4 gap-x-4">
-                    <h5 className="font-light text-slate-600 text-md">
+                    <h5 className="text-sm font-light text-slate-400">
                       {qn.answered && (
                         <>
-                          {qn.id} {qn.question}
+                          {qn.id}. {qn.question}
                         </>
                       )}
                       <span className="ps-2">
                         <FontAwesomeIcon
-                          icon={
-                            qn.isCorrect
-                              ? faCheck
-                              : qn.answered
-                              ? faClose
-                              : faPlusCircle
-                          }
+                          icon={qn.isCorrect ? faCheck : faClose}
                           className={
-                            qn.isCorrect
-                              ? "text-green-500"
-                              : qn.answered
-                              ? "text-red-900"
-                              : "text-blue-300"
+                            qn.isCorrect ? "text-green-500" : "text-red-900"
                           }
                         />
                       </span>
