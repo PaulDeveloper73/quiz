@@ -7,7 +7,8 @@ export const data = [
     options: ["Modem", "Router", "LAN Cable", "Pen drive"],
     answer: "Modem",
     answered: false,
-    useranswer: null,
+    isCorrect: null,
+    userAnswer: null,
   },
   {
     id: 2,
@@ -15,7 +16,8 @@ export const data = [
     options: ["Asia", "Europe", "North America", "Africa"],
     answer: "Africa",
     answered: false,
-    useranswer: null,
+    isCorrect: null,
+    userAnswer: null,
   },
   {
     id: 3,
@@ -23,7 +25,8 @@ export const data = [
     options: ["Spam", "Fake", "Archive", "Bin"],
     answer: "Spam",
     answered: false,
-    useranswer: null,
+    isCorrect: null,
+    userAnswer: null,
   },
   {
     id: 4,
@@ -31,7 +34,8 @@ export const data = [
     options: ["Application software", "Internet", "Operating system", "Mouse"],
     answer: "Operating system",
     answered: false,
-    useranswer: null,
+    isCorrect: null,
+    userAnswer: null,
   },
   {
     id: 5,
@@ -39,6 +43,7 @@ export const data = [
     options: ["Index page", "Home page", "Sitemap", "Pen drive"],
     answer: "Home page",
     answered: false,
-    useranswer: null,
+    isCorrect: null,
+    userAnswer: null,
   },
 ];

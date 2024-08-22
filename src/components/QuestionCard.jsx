@@ -1,31 +1,50 @@
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+
 const QuestionCard = ({ qn, handleAnswer }) => {
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [isAnswered, setIsAnswered] = useState(false);
+
+  const handleOptionClick = (answer) => {
+    if (!isAnswered) {
+      setSelectedAnswer(answer);
+      handleAnswer(answer);
+      setIsAnswered(true);
+    }
+  };
+
   return (
     <div>
       <h5 className="pt-10 text-lg font-light text-slate-500">{qn.question}</h5>
-      <div className="flex flex-col *:text-slate-700 space-y-2 pt-4">
+      <div className="flex flex-col text-slate-700 space-y-2 pt-4">
         {qn.options.map((a, index) => {
+          const isCorrectAnswer = qn.answer === a;
+          const isSelectedAnswer = selectedAnswer === a;
+
+          let borderClass = "border-slate-200";
+          if (isAnswered) {
+            if (isCorrectAnswer) {
+              borderClass = "border-green-500";
+            } else if (isSelectedAnswer && !isCorrectAnswer) {
+              borderClass = "border-red-500";
+            }
+          }
+
           return (
             <span
               key={index}
-              onClick={() => handleAnswer(a, index)}
-              className="p-2 transition-all ease-in-out border cursor-pointer border-slate-200 hover:bg-blue-400 hover:text-slate-100 hover:ps-4 hover:rounded-md"
+              onClick={() => handleOptionClick(a)}
+              className={`p-2 transition-all ease-in-out border cursor-pointer ${borderClass} ${
+                isAnswered
+                  ? "cursor-not-allowed"
+                  : "hover:bg-blue-400 hover:text-slate-100 hover:ps-4 hover:rounded-md"
+              }`}
+              style={{ pointerEvents: isAnswered ? "none" : "auto" }}
             >
               {a}
             </span>
           );
         })}
-        {/* <span className="p-2 transition-all ease-in-out border cursor-pointer border-slate-200 hover:bg-blue-400 hover:text-slate-100 hover:ps-4 hover:rounded-md">
-          A: Modem
-        </span>
-        <span className="p-2 transition-all ease-in-out border cursor-pointer border-slate-200 hover:bg-blue-400 hover:text-slate-100 hover:ps-4 hover:rounded-md">
-          B: Router
-        </span>
-        <span className="p-2 transition-all ease-in-out border cursor-pointer border-slate-200 hover:bg-blue-400 hover:text-slate-100 hover:ps-4 hover:rounded-md">
-          C: LAN Cable
-        </span>
-        <span className="p-2 transition-all ease-in-out border cursor-pointer border-slate-200 hover:bg-blue-400 hover:text-slate-100 hover:ps-4 hover:rounded-md">
-          D: Pen Drive
-        </span> */}
       </div>
     </div>
   );
