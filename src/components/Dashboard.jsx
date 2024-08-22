@@ -113,25 +113,25 @@ const Dashboard = () => {
                           {qn.id} {qn.question}
                         </>
                       )}
+                      <span className="ps-2">
+                        <FontAwesomeIcon
+                          icon={
+                            qn.isCorrect
+                              ? faCheck
+                              : qn.answered
+                              ? faClose
+                              : faPlusCircle
+                          }
+                          className={
+                            qn.isCorrect
+                              ? "text-green-500"
+                              : qn.answered
+                              ? "text-red-900"
+                              : "text-blue-300"
+                          }
+                        />
+                      </span>
                     </h5>
-                    <span>
-                      <FontAwesomeIcon
-                        icon={
-                          qn.isCorrect
-                            ? faCheck
-                            : qn.answered
-                            ? faClose
-                            : faPlusCircle
-                        }
-                        className={
-                          qn.isCorrect
-                            ? "text-green-500"
-                            : qn.answered
-                            ? "text-red-900"
-                            : "text-blue-300"
-                        }
-                      />
-                    </span>
                   </div>
                 </div>
               ))}
