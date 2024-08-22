@@ -15,6 +15,7 @@ const Dashboard = () => {
   const [activeQn, setActiveQn] = useState(0);
   const [status, setStatus] = useState(false);
   const [questions, setQuestions] = useState(data);
+  const answeredQuestion = questions.filter((qn) => qn.answered);
 
   const sleep = async () => {
     return new Promise((resolve) => setTimeout(resolve, 1000));
@@ -94,7 +95,7 @@ const Dashboard = () => {
             </h4>
             <div className="flex flex-col items-center justify-center">
               <span className="text-4xl font-light text-slate-400">
-                {questions.filter((qn) => qn.answered).length}/{totalQuestion}
+                {questions.filter((qn) => qn.isCorrect).length}/{totalQuestion}
               </span>
               <span className="text-xs text-slate-400 font-extralight">
                 scored
@@ -103,11 +104,15 @@ const Dashboard = () => {
           </div>
           <section>
             <div className="overflow-y-scroll max-h-52">
-              {questions.map((qn) => (
+              {answeredQuestion.map((qn) => (
                 <div key={qn.id}>
                   <div className="flex items-center justify-start pt-4 gap-x-4">
                     <h5 className="font-light text-slate-600 text-md">
-                      {qn.id}. {qn.question}
+                      {qn.answered && (
+                        <>
+                          {qn.id} {qn.question}
+                        </>
+                      )}
                     </h5>
                     <span>
                       <FontAwesomeIcon
@@ -166,6 +171,7 @@ const Dashboard = () => {
               <div className="pt-10">
                 <button
                   type="button"
+                  onClick={() => window.location.reload()}
                   className="w-full py-3 text-xl text-blue-400 border rounded-sm shadow-md outline-none hover:ring-1 hover:text-slate-100 hover:ring-offset-4 hover:ring-blue-400 hover:cursor-pointer hover:bg-blue-500"
                 >
                   Reset Quiz{" "}
