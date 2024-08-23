@@ -20,14 +20,17 @@ const Dashboard = () => {
   const [message, setMessage] = useState(false);
   const answeredQuestion = questions.filter((qn) => qn.answered);
   const lastAnsweredQuestion = activeQn === totalQuestion - 1;
-  if (lastAnsweredQuestion) {
-    const isLastQuestion = questions.find(
-      (qn) => qn.id === totalQuestion && qn.answered
-    );
-    if (isLastQuestion) {
-      // setMessage(true);
+
+  useEffect(() => {
+    if (lastAnsweredQuestion) {
+      const isLastQuestion = questions.find(
+        (qn) => qn.id === totalQuestion && qn.answered
+      );
+      if (isLastQuestion) {
+        setMessage(true);
+      }
     }
-  }
+  }, [lastAnsweredQuestion, questions, totalQuestion]);
 
   const sleep = async () => {
     return new Promise((resolve) => setTimeout(resolve, 1000));
@@ -51,7 +54,7 @@ const Dashboard = () => {
   const handleNextQuestion = async () => {
     setStatus(true);
     if (activeQn < totalQuestion - 1) {
-      await sleep(1000);
+      await sleep(100);
       setStatus(false);
       setActiveQn(activeQn + 1);
     }
@@ -65,15 +68,17 @@ const Dashboard = () => {
     <>
       <section className="flex flex-col items-center justify-center min-h-screen space-y-10 gap-x-10 lg:flex-row bg-slate-100 bg-opacity-10">
         <div className="p-4 border rounded-md shadow-md bg-slate-100 min-w-[320px] lg:min-w-[600px]">
-          <h1 className="pb-4 text-4xl font-semibold text-blue-400 border-b-2 border-slate-300">
+          <h1 className="pb-4 text-4xl font-semibold text-blue-500 border-b-2 border-slate-300">
             Quiz App
           </h1>
           <section className="space-x-20">
-            <span className="float-right text-slate-400 font-extralight">
-              Question: {activeQn + 1} of {totalQuestion}
-            </span>
+            {!message && (
+              <span className="float-right text-slate-400 font-extralight">
+                Question: {activeQn + 1} of {totalQuestion}
+              </span>
+            )}
           </section>
-          <section>
+          <section className={message ? "text-center mt-10" : ""}>
             {message
               ? "Thank you for participating in the test!"
               : questions
@@ -85,50 +90,55 @@ const Dashboard = () => {
                       handleAnswer={handleAnswer}
                     />
                   ))}
+            {message && (
+              <div className="flex flex-col items-center justify-center mt-4">
+                <span className="text-4xl font-normal text-blue-600">
+                  {questions.filter((qn) => qn.isCorrect).length}/
+                  {totalQuestion}
+                </span>
+                <span className="text-md text-slate-500 font-extralight">
+                  scored
+                </span>
+              </div>
+            )}
             <div className="pt-20">
-              <button
-                type="button"
-                onClick={handleNextQuestion}
-                className={
-                  lastAnsweredQuestion
-                    ? "w-full py-3 text-xl bg-slate-300 border-none rounded-sm shadow-md outline-none text-slate-100 hover:cursor-none"
-                    : "w-full py-3 text-xl bg-blue-400 border-none rounded-sm shadow-md outline-none text-slate-100 hover:ring-1 hover:ring-offset-4 hover:ring-blue-400 hover:cursor-pointer hover:bg-blue-500"
-                }
-                disabled={lastAnsweredQuestion}
-              >
-                {status ? "Loading" : "Next"}
-                {!status && (
-                  <span className="ps-2">
-                    <FontAwesomeIcon
-                      icon={faArrowRight}
-                      className="text-sm font-light"
-                    />
-                  </span>
-                )}
-              </button>
+              {!message && (
+                <button
+                  type="button"
+                  onClick={handleNextQuestion}
+                  className={
+                    lastAnsweredQuestion
+                      ? "w-full py-3 text-xl bg-slate-300 border-none rounded-sm shadow-md outline-none text-slate-100 hover:cursor-none"
+                      : "w-full py-3 text-xl bg-blue-400 border-none rounded-sm shadow-md outline-none text-slate-100 hover:ring-1 hover:ring-offset-4 hover:ring-blue-400 hover:cursor-pointer hover:bg-blue-500"
+                  }
+                  disabled={lastAnsweredQuestion}
+                >
+                  {status ? "Loading" : "Next"}
+                  {!status && (
+                    <span className="ps-2">
+                      <FontAwesomeIcon
+                        icon={faArrowRight}
+                        className="text-sm font-light"
+                      />
+                    </span>
+                  )}
+                </button>
+              )}
             </div>
           </section>
         </div>
         <div className="p-4 bg-white border rounded-md shadow-md">
-          <div className="flex items-center justify-between">
+          <div className="items-center ">
             <h4 className="pb-4 text-2xl font-light border-b-2 text-slate-500 border-slate-300">
               Result Summary
             </h4>
-            <div className="flex flex-col items-center justify-center">
-              <span className="text-4xl font-light text-slate-400">
-                {questions.filter((qn) => qn.isCorrect).length}/{totalQuestion}
-              </span>
-              <span className="text-xs text-slate-400 font-extralight">
-                scored
-              </span>
-            </div>
           </div>
           <section>
             <div className="overflow-y-scroll max-h-52">
               {answeredQuestion.map((qn) => (
                 <div key={qn.id}>
                   <div className="flex items-center justify-start pt-4 gap-x-4">
-                    <h5 className="text-sm font-light text-slate-400">
+                    <h5 className="text-sm font-normal text-slate-500">
                       {qn.answered && (
                         <>
                           {qn.id}. {qn.question}
