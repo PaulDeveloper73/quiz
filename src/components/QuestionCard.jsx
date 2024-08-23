@@ -15,8 +15,10 @@ const QuestionCard = ({ qn, handleAnswer }) => {
 
   return (
     <div>
-      <h5 className="pt-10 text-lg font-light text-slate-500">{qn.question}</h5>
-      <div className="flex flex-col text-slate-700 space-y-2 pt-4">
+      <h5 className="pt-10 text-lg font-normal text-slate-500">
+        {qn.question}
+      </h5>
+      <div className="flex flex-col pt-4 space-y-2 text-slate-700">
         {qn.options.map((a, index) => {
           const isCorrectAnswer = qn.answer === a;
           const isSelectedAnswer = selectedAnswer === a;

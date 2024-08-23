@@ -8,9 +8,9 @@ const Loading = ({ setLoader }) => {
   }, [setLoader]);
 
   return (
-    <div className="flex flex-col  gap-y-6 items-center justify-center min-h-screen bg-white">
-      <h1 className=" text-center font-extralight text-sm"> Welcome!</h1>
-      <h1 className="text-3xl text-blue-600 text-center">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white gap-y-6">
+      <h1 className="text-sm font-medium text-center"> Welcome!</h1>
+      <h1 className="text-3xl font-normal text-center text-blue-600">
         Boost IQ With Super Quiz App
       </h1>
       <img src="./loading.gif" className="size-40" />
