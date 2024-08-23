@@ -17,6 +17,7 @@ const Dashboard = () => {
   const [status, setStatus] = useState(false);
   const [questions, setQuestions] = useState(data);
   const [message, setMessage] = useState(false);
+  const [error, setError] = useState(false);
   const answeredQuestion = questions.filter((qn) => qn.answered);
   const lastAnsweredQuestion = activeQn === totalQuestion - 1;
 
@@ -49,13 +50,24 @@ const Dashboard = () => {
     });
     setQuestions(updatedQuestions);
   };
-
+  const isQuestionAnswered = async () => {
+    const id = activeQn + 1;
+    const qn = questions.find((qn) => qn.id === id);
+    return qn.answered;
+  };
   const handleNextQuestion = async () => {
     setStatus(true);
-    if (activeQn < totalQuestion - 1) {
-      await sleep(100);
+    const IsAnswered = await isQuestionAnswered();
+    if (IsAnswered) {
+      if (activeQn < totalQuestion - 1) {
+        await sleep(100);
+        setStatus(false);
+        setError(false);
+        setActiveQn(activeQn + 1);
+      }
+    } else {
       setStatus(false);
-      setActiveQn(activeQn + 1);
+      setError(true);
     }
   };
 
@@ -67,7 +79,7 @@ const Dashboard = () => {
     <>
       <section className="flex flex-col items-center justify-center min-h-screen space-y-10 gap-x-10 lg:flex-row bg-slate-100 bg-opacity-10">
         <div className="p-4 border rounded-md shadow-md bg-slate-100 min-w-[320px] lg:min-w-[600px]">
-          <h1 className="pb-4 text-4xl font-semibold text-blue-500 border-b-2 border-slate-300">
+          <h1 className="pb-4 text-3xl font-semibold text-blue-500 border-b-2 sm:text-4xl border-slate-300">
             Quiz App
           </h1>
           <section className="space-x-20">
@@ -87,6 +99,7 @@ const Dashboard = () => {
                       key={qn.id}
                       qn={qn}
                       handleAnswer={handleAnswer}
+                      setError={setError}
                     />
                   ))}
             {message && (
@@ -100,7 +113,13 @@ const Dashboard = () => {
                 </span>
               </div>
             )}
-            <div className="pt-20">
+            <div className="pt-6">
+              {error && (
+                <p className="pb-4 text-sm font-normal text-center text-red-500 animate-pulse">
+                  Please select an answer
+                </p>
+              )}
+
               {!message && (
                 <button
                   type="button"

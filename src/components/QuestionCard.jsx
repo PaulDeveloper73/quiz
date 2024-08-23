@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 
-const QuestionCard = ({ qn, handleAnswer }) => {
+const QuestionCard = ({ qn, handleAnswer, setError }) => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isAnswered, setIsAnswered] = useState(false);
 
@@ -10,6 +10,7 @@ const QuestionCard = ({ qn, handleAnswer }) => {
       setSelectedAnswer(answer);
       handleAnswer(answer);
       setIsAnswered(true);
+      setError(false);
     }
   };
 
