@@ -5,7 +5,6 @@ import {
   faArrowRight,
   faCheck,
   faClose,
-  faPlusCircle,
   faShare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";

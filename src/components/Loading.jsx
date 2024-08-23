@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+/* eslint-disable react/prop-types */
 const Loading = ({ setLoader }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
