@@ -14,7 +14,7 @@ const Loading = ({ setLoader }) => {
       <h1 className="text-3xl font-normal text-center text-blue-600">
         Boost IQ With Super Quiz App
       </h1>
-      <img src="./loading.gif" className="size-40" />
+      <img src="./loading.gif" className="size-40" alt="Quiz Loading" />
     </div>
   );
 };
